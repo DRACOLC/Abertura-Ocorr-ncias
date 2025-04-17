@@ -1,4 +1,3 @@
-from keep_alive import keep_alive
 import os
 import logging
 import bot_commands
@@ -13,9 +12,6 @@ logger = logging.getLogger(__name__)
 
 def main():
     """Start the bot."""
-    # Inicia o servidor web para manter o bot ativo
-    keep_alive()
-    
     # Cria o updater e passa o token do bot
     updater = Updater(os.environ.get("TELEGRAM_BOT_TOKEN"))
     
