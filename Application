@@ -1,0 +1,4 @@
+from telegram import Application
+
+token = "7852956163:AAEuPwAIT-rJJxCAfu7ABwI_HYOWAW_GCPI"
+app = Application.builder().token(token).build()
