@@ -1,6 +1,8 @@
 import os
 import logging
+import threading
 import signal
+from flask import Flask, jsonify
 
 # Configurar logging
 logging.basicConfig(
@@ -18,7 +20,7 @@ bot_thread = None
 # Função para iniciar o bot
 def start_bot():
     try:
-        from main import main
+        from main import main  # seu arquivo principal com a lógica do bot
         main()
     except Exception as e:
         logger.error(f"Erro ao iniciar o bot: {e}")
