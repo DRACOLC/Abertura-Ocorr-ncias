@@ -1,0 +1,151 @@
+<!-- client/index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulário de Ocorrência - PROCISA</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    input[type="file"] {
+      border: none;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      background: #0066cc;
+      color: white;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://i.imgur.com/2DZz5Tc.png" alt="Logo PROCISA" style="width: 200px; display: block; margin: 0 auto 20px;" />
+  <h1>ACIONAMENTO REDE EXTERNA</h1>
+  <p>Preencha as informações para acionar a rede externa.</p>
+
+  <form id="formulario">
+    <label>Nome completo do técnico *
+      <input type="text" name="Nome do Técnico" required />
+    </label>
+
+    <label>Login *
+      <input type="text" name="Login" required />
+    </label>
+
+    <label>Número de telefone do técnico *
+      <input type="text" name="Telefone do Técnico" required />
+    </label>
+
+    <label>Número do contrato *
+      <input type="text" name="Contrato" required />
+    </label>
+
+    <label>Endereço *
+      <input type="text" name="Endereço" required />
+    </label>
+
+    <label>Bairro *
+      <input type="text" name="Bairro" required />
+    </label>
+
+    <label>Cidade *
+      <input type="text" name="Cidade" required />
+    </label>
+
+    <label>Valor do TAP
+      <input type="text" name="Valor do TAP" />
+    </label>
+
+    <label>Node *
+      <input type="text" name="Node" required />
+    </label>
+
+    <label>CA (Canal Alto) *
+      <input type="text" name="CA" required />
+    </label>
+
+    <label>CB (Canal Baixo) *
+      <input type="text" name="CB" required />
+    </label>
+
+    <label>TX *
+      <input type="text" name="TX" required />
+    </label>
+
+    <label>RX *
+      <input type="text" name="RX" required />
+    </label>
+
+    <label>BER *
+      <input type="text" name="BER" required />
+    </label>
+
+    <label>Número de telefone do Cliente *
+      <input type="text" name="Telefone do Cliente" required />
+    </label>
+
+    <label>Observações
+      <textarea name="Observações" rows="3"></textarea>
+    </label>
+
+    <label>Adicione as imagens (máx. 10)
+      <input type="file" name="fotos" accept="image/*" multiple required />
+    </label>
+
+    <button type="submit">Enviar Ocorrência</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('formulario');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const files = form.querySelector('input[type="file"]').files;
+
+      if (files.length > 10) {
+        alert('Você só pode anexar até 10 fotos.');
+        return;
+      }
+
+      try {
+        const res = await fetch('http://localhost:3000/enviar', {
+          method: 'POST',
+          body: formData
+        });
+
+        const texto = await res.text();
+        alert(texto);
+        form.reset();
+      } catch (err) {
+        alert('Erro ao enviar formulário. Tente novamente.');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
