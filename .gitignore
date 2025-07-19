@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+
+# Variáveis de ambiente
+.env
+
+# Uploads temporários
+uploads/
+
+# Logs
+*.log
+
+# Sistema operacional (opcional)
+.DS_Store
+Thumbs.db
