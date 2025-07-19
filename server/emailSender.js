@@ -1,9 +1,8 @@
-// server/emailSender.js
 const nodemailer = require('nodemailer');
-const fs = require('fs');
 const path = require('path');
 
 async function enviarEmail({ respostas, pdfPath, fotos }) {
+  // Configuração do transporte SMTP usando Gmail
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -12,17 +11,16 @@ async function enviarEmail({ respostas, pdfPath, fotos }) {
     }
   });
 
+  // Montar anexos (PDF + fotos)
   const anexos = [
-    {
-      filename: path.basename(pdfPath),
-      path: pdfPath
-    },
+    { filename: path.basename(pdfPath), path: pdfPath },
     ...fotos.map(foto => ({
       filename: foto.originalname,
       path: foto.path
     }))
   ];
 
+  // Corpo do email em texto
   const corpoTexto = Object.entries(respostas)
     .map(([chave, valor]) => `${chave}: ${valor}`)
     .join('\n');
